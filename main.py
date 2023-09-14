@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import * #QApplication, QWidget, QMainWindow
 from PyQt5.QtGui import *
 import sys
 
+HI DARLA --> DELETE THIS  --> Just testing my access and commit rights.
+
 # Function for the main window
 def window():
     # application
