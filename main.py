@@ -1,5 +1,5 @@
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import * #QApplication, QWidget, QMainWindow
+from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import *
 import sys
 
@@ -16,6 +16,9 @@ def window():
     window.setWindowTitle("Birthday GUI")
     window.setGeometry(500, 100, Wwidth, Wheight)
 
+    # divide into top and bottom subframe here
+    # maybe try to make frame hidden until user enters info
+    
     # creating the welcome to label
     welcome_label = QtWidgets.QLabel(window)
     welcome_label.setText("Welcome to a...")
