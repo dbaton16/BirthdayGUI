@@ -52,10 +52,17 @@ def window():
     birthday_instruction.setFont(QFont('Arial', 12))
     birthday_instruction.adjustSize()
     birthday_instruction.move(80, 100)
-    user_birthday = QDateTimeEdit(window)
-    user_birthday.setGeometry(300, 90, 150, 35)
-    user_birthday.setDisplayFormat("yyyy/MM/dd")
-    #user_birthday.clicked.connect
+    birthdayPicker = QDateTimeEdit(window)
+    birthdayPicker.setGeometry(300, 90, 150, 35)
+    birthdayPicker.setDisplayFormat("yyyy/MM/dd")
+
+    #work in progress, maybe just use button
+    #birthdayPicker.dateTimeChanged.connect()
+    user_birthday = QLabel(window)
+    user_birthday.setText("Date Chosen: " + str(birthdayPicker.dateTime))
+    #user_birthday.setText(f"Date Chosen: {birthdayPicker.get}")
+    user_birthday.setGeometry(300, 120, 150, 35)
+
 
 
 
@@ -66,4 +73,3 @@ def window():
 
 
 window()
-
