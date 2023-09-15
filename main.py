@@ -43,7 +43,8 @@ def window():
     birthday_instruction.move(80, 100)
     datetimeedit = QDateTimeEdit(window)
     datetimeedit.setGeometry(100, 100, 150, 35)
-    datetimeedit.setDisplayFormat("dd/MM/yyyyy")
+    datetimeedit.setDisplayFormat("yyyy/MM/dd")
+    #datetimeedit.setDisplayFormat("dd/MM/yyyyy")
     #birthday_entry = QtWidgets.QTextEdit(window)
     #birthday_entry.move(300, 100)
 
