@@ -1,6 +1,7 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
 from PyQt5.QtWidgets import * 
 from PyQt5.QtGui import *
+from PyQt5.QtCore import QDate, QTime, QDateTime, Qt
 import sys
 
 # Function for the main window
