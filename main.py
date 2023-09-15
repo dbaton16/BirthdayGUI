@@ -3,8 +3,6 @@ from PyQt5.QtWidgets import * #QApplication, QWidget, QMainWindow
 from PyQt5.QtGui import *
 import sys
 
-HI DARLA --> DELETE THIS  --> Just testing my access and commit rights.
-
 # Function for the main window
 def window():
     # application
@@ -17,7 +15,6 @@ def window():
     Wwidth, Wheight = 500, 500
     window.setWindowTitle("Birthday GUI")
     window.setGeometry(500, 100, Wwidth, Wheight)
-
 
     # creating the welcome to label
     welcome_label = QtWidgets.QLabel(window)
@@ -43,9 +40,15 @@ def window():
     datetimeedit = QDateTimeEdit(window)
     datetimeedit.setGeometry(100, 100, 150, 35)
     datetimeedit.setDisplayFormat("dd/MM/yyyyy")
-    print("test!!")
     #birthday_entry = QtWidgets.QTextEdit(window)
     #birthday_entry.move(300, 100)
+
+    #handle keypress for user entry
+    def keyPressEvent(key):
+        if key.key() == Qt.Key_enter:
+            app.close()
+
+    #NEXT STEP: create a frame underneath, use connect method to connect widgets to functions and use alerts for zodiac
 
     window.show()
     sys.exit(app.exec())
