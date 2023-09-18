@@ -1,8 +1,11 @@
-from PyQt5 import QtWidgets, QtCore
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-from PyQt5.QtCore import QDate, QTime, QDateTime, Qt
+from PyQt6 import QtWidgets, QtCore
+from PyQt6.QtWidgets import *
+from PyQt6.QtGui import *
+from PyQt6.QtCore import QDate, QTime, QDateTime, Qt
 import sys
+
+
+
 """
 # Functions for calculations
 def calcAgeYears:
@@ -25,12 +28,48 @@ def window():
 
     # bottom subframe here
     bframe = QFrame(window)
-    bframe.setFrameShape(QFrame.StyledPanel)
+    #bframe.setFrameShape(QFrame.StyledPanel)
     bframe.setGeometry(0, 250, 500, 250)
     bframe.setStyleSheet("background-color: #c0c7d1;")
     bframe.hide() #hides frame until user enters info
 
-    # maybe try to make frame hidden until user enters info
+    # FUNCTIONS
+    def calcAge():
+        print(f"Birthday Entered: {birthdayPicker.date().toString()}")
+        now = QDate.currentDate()
+        birthday = birthdayPicker.date()
+
+        ageDays = birthday.daysTo(now)
+        ageYears = int(ageDays/365)
+
+        zodiac = ""
+        print(ageDays, ageYears)
+
+        # Alert box/ Message box with zodiac sign
+        zodiacAlert = QMessageBox("Information")
+        #zodiacAlert.setTitle("Zodiac Sign")
+        #zodiacAlert.setIcon(QMessageBox.Information)
+        zodiacAlert.setText("Your Zodiac sign is..")
+        #zodiacAlert.setStandardButtons(QMessageBox.Ok)
+        #zodiacAlert.setInformativeText(sign)
+
+        zodiacAlert.show()
+
+        # Adds age info to frame, then show it
+        yearslabel = QtWidgets.QLabel(bframe)
+        yearslabel.setText(f"You are {ageYears} years old.")
+        yearslabel.setFont(QFont('Arial', 12))
+        yearslabel.setGeometry(100, 30, 150, 15)
+
+        dayslabel = QtWidgets.QLabel(bframe)
+        dayslabel.setText(f"You are {ageDays} days old.")
+        dayslabel.setFont(QFont('Arial', 12))
+        dayslabel.setGeometry(170, 50, 150, 15)
+
+        bframe.show()
+
+        #add alert here to say zodiac
+
 
     # creating the welcome to label
     welcome_label = QtWidgets.QLabel(window)
@@ -52,21 +91,24 @@ def window():
     birthday_instruction.setFont(QFont('Arial', 12))
     birthday_instruction.adjustSize()
     birthday_instruction.move(80, 100)
-    birthdayPicker = QDateTimeEdit(window)
+    birthdayPicker = QDateEdit(window)
+    #birthdayPicker = QDateTimeEdit(window)
     birthdayPicker.setGeometry(300, 90, 150, 35)
     birthdayPicker.setDisplayFormat("yyyy/MM/dd")
 
-    #work in progress, maybe just use button
-    #birthdayPicker.dateTimeChanged.connect()
-    user_birthday = QLabel(window)
-    user_birthday.setText("Date Chosen: " + str(birthdayPicker.dateTime))
-    #user_birthday.setText(f"Date Chosen: {birthdayPicker.get}")
-    user_birthday.setGeometry(300, 120, 150, 35)
+
+
+    birthday = QtWidgets.QPushButton(window)
+    birthday.setText("Enter Birthday")
+    birthday.setGeometry(295, 125, 150, 35)
+    birthday.clicked.connect(calcAge)
 
 
 
 
-    # NEXT STEP: use connect method to connect widgets to functions and use alerts for zodiac
+
+
+    # NEXT STEP: calculate age in years, use alerts for zodiac
 
     window.show()
     sys.exit(app.exec())
