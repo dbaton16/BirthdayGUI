@@ -3,9 +3,24 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import QDate, QTime, QDateTime, Qt
 import sys
-
-
-
+"""
+# Zodiac dates
+# Aries : Mar 21 - Apr 19
+ariesS = QtCore.QDate.fromString("04-21", "yyyy-MM-dd")
+ariesF = QtCore.QDate.fromString("05-19", "yyyy-MM-dd")
+print(ariesS, ariesF)
+# Taurus : Apr 20 - May 20
+# Gemini : May 21 - Jun 21
+# Cancer : Jun 22 - Jul 22
+# Leo : July 23 - August 22
+# Virgo : August 23 - Sept 22
+# Libra : Sept 23 - Oct 23
+# Scorpio : Oct 24 - Nov 21
+# Sagittarius : Nov 22 - Dec 21
+# Capricorn : Dec 22 - Jan 19
+# Aquarius : Jan 20 - Feb 18
+# Pisces : Feb 19 - Mar 20
+"""
 """
 # Functions for calculations
 def calcAgeYears:
@@ -25,13 +40,26 @@ def window():
     Wwidth, Wheight = 500, 500
     window.setWindowTitle("Birthday GUI")
     window.setGeometry(500, 100, Wwidth, Wheight)
+    # Fixes the size of the window
+    window.setFixedSize(Wwidth,Wheight)
 
     # bottom subframe here
     bframe = QFrame(window)
     #bframe.setFrameShape(QFrame.StyledPanel)
-    bframe.setGeometry(0, 250, 500, 250)
+    bframe.setGeometry(0, 220, 500, 300)
     bframe.setStyleSheet("background-color: #c0c7d1;")
     bframe.hide() #hides frame until user enters info
+
+    # Tabs for bottom frame
+
+    dayPage = QWidget
+    monthPage = QWidget
+    yearPage = QWidget
+
+    tabs = QTabWidget(bframe)
+    tabs.addTab(dayPage(), "Days")
+    tabs.addTab(monthPage(), "Months")
+    tabs.addTab(yearPage(), "Years")
 
     # FUNCTIONS
     def calcAge():
@@ -41,19 +69,23 @@ def window():
 
         ageDays = birthday.daysTo(now)
         ageYears = int(ageDays/365)
-
+        """
         zodiac = ""
+        if birthday
+        """
         print(ageDays, ageYears)
 
+
         # Alert box/ Message box with zodiac sign
-        zodiacAlert = QMessageBox("Information")
-        #zodiacAlert.setTitle("Zodiac Sign")
+        zodiacAlert = QMessageBox()
+        #zodiacAlert.setStyle("Zodiac Sign")
         #zodiacAlert.setIcon(QMessageBox.Information)
         zodiacAlert.setText("Your Zodiac sign is..")
         #zodiacAlert.setStandardButtons(QMessageBox.Ok)
         #zodiacAlert.setInformativeText(sign)
+        retval = zodiacAlert.exec()
 
-        zodiacAlert.show()
+
 
         # Adds age info to frame, then show it
         yearslabel = QtWidgets.QLabel(bframe)
@@ -115,3 +147,4 @@ def window():
 
 
 window()
+
