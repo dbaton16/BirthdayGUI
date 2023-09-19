@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import QDate, QTime, QDateTime, Qt
 import sys
+
 """
 # Zodiac dates
 # Aries : Mar 21 - Apr 19
@@ -53,10 +54,15 @@ def window():
     # Tabs for bottom frame
 
     dayPage = QWidget
+    label = QLabel()
+    label.setText("Hi")
+    label.move(10, 10)
     monthPage = QWidget
     yearPage = QWidget
 
     tabs = QTabWidget(bframe)
+    tabs.resize(500, 300)
+    tabs.setStyleSheet("QTabBar: : tab { height: 100px; width: 100px; background: 'pink' }")
     tabs.addTab(dayPage(), "Days")
     tabs.addTab(monthPage(), "Months")
     tabs.addTab(yearPage(), "Years")
@@ -83,6 +89,7 @@ def window():
         zodiacAlert.setText("Your Zodiac sign is..")
         #zodiacAlert.setStandardButtons(QMessageBox.Ok)
         #zodiacAlert.setInformativeText(sign)
+        zodiacAlert.adjustSize()
         retval = zodiacAlert.exec()
 
 
@@ -92,11 +99,13 @@ def window():
         yearslabel.setText(f"You are {ageYears} years old.")
         yearslabel.setFont(QFont('Arial', 12))
         yearslabel.setGeometry(100, 30, 150, 15)
+        yearslabel.adjustSize()
 
         dayslabel = QtWidgets.QLabel(bframe)
         dayslabel.setText(f"You are {ageDays} days old.")
         dayslabel.setFont(QFont('Arial', 12))
         dayslabel.setGeometry(170, 50, 150, 15)
+        dayslabel.adjustSize()
 
         bframe.show()
 
@@ -147,4 +156,3 @@ def window():
 
 
 window()
-
