@@ -57,6 +57,7 @@ def window():
     label = QLabel()
     label.setText("Hi")
     label.move(10, 10)
+    #dayPage.addWidget(label)
     monthPage = QWidget
     yearPage = QWidget
 
