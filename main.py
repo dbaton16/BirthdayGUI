@@ -52,19 +52,14 @@ def window():
     bframe.hide() #hides frame until user enters info
 
     # Tabs for bottom frame
-    layout = QVBoxLayout()
+
     dayPage = QWidget
-    dayPage.setLayout(layout)
-    label = QLabel()
-    label.setText("Hi")
-    label.move(10, 10)
-    dayPage.layout().addWidget(label)
     monthPage = QWidget
     yearPage = QWidget
 
     tabs = QTabWidget(bframe)
     tabs.resize(500, 300)
-    tabs.setStyleSheet("QTabBar: : tab { height: 100px; width: 100px; background: 'pink' }")
+    #tabs.setStyleSheet("QTabBar: : tab { height: 100px; width: 100px; background: 'pink' }")
     tabs.addTab(dayPage(), "Days")
     tabs.addTab(monthPage(), "Months")
     tabs.addTab(yearPage(), "Years")
