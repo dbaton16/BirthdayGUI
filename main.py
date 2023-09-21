@@ -4,6 +4,7 @@ from PyQt6.QtGui import *
 from PyQt6.QtCore import QDate, QTime, QDateTime, Qt
 import sys
 
+#print(birthdayPicker.dateTime().toString())
 """
 # Zodiac dates
 # Aries : Mar 21 - Apr 19
@@ -48,26 +49,44 @@ def window():
     bframe = QFrame(window)
     #bframe.setFrameShape(QFrame.StyledPanel)
     bframe.setGeometry(0, 220, 500, 300)
-    bframe.setStyleSheet("background-color: #c0c7d1;")
+    bframe.setStyleSheet("background-color: #e6e8e8;")
     bframe.hide() #hides frame until user enters info
 
     # Tabs for bottom frame
-    layout = QVBoxLayout()
-    dayPage = QWidget
-    dayPage.setLayout(layout)
+    tab = QTabWidget(bframe)
+    tab.resize(500, 300)
+    layout = QFormLayout()
+    layout.addWidget(tab)
+
+    stylesheet = """ 
+        QTabBar::tab:selected {background: #000000;}
+        QTabWidget>QWidget>QWidget{background: #e6e8e8;}
+        """
+
+    tab.setStyleSheet(stylesheet)
+
+    yearpage = QWidget(tab)
+    yearpage_layout = QVBoxLayout()
+    yearpage.setLayout(yearpage_layout)
+
     label = QLabel()
     label.setText("Hi")
-    label.move(10, 10)
-    dayPage.layout().addWidget(label)
-    monthPage = QWidget
-    yearPage = QWidget
+    yearpage.layout().addWidget(label)
 
-    tabs = QTabWidget(bframe)
-    tabs.resize(500, 300)
-    tabs.setStyleSheet("QTabBar: : tab { height: 100px; width: 100px; background: 'pink' }")
-    tabs.addTab(dayPage(), "Days")
-    tabs.addTab(monthPage(), "Months")
-    tabs.addTab(yearPage(), "Years")
+    monthpage = QWidget(tab)
+    monthpage_layout = QVBoxLayout()
+    monthpage.setLayout(monthpage_layout)
+
+    label2 = QLabel()
+    label2.setText("Hello")
+    monthpage.setLayout(monthpage_layout)
+    monthpage.layout().addWidget(label2)
+
+
+    tab.addTab(yearpage, "Years")
+    tab.addTab(monthpage, "Months")
+
+    tab.show()
 
     # FUNCTIONS
     def calcAge():
