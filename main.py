@@ -116,9 +116,15 @@ def window():
         csv_writer = csv.DictWriter(csvfile, fieldnames=columns, delimiter=';')
         csv_writer.writeheader()
 
+        # FIGURE OUT WHERE TO PUT THIS!!!!
+        #csv_writer.writerows(birthday_dict)
 
+    entries = 0
     # FUNCTIONS
     def calcAge():
+        birthday_dict = {}
+        entries = + 1
+        birthday_dict[f"{entries}"] = "birthdayPicker.date().toString()"
 
         # Prints user entry into console and adds it to csv file
         user_birthday = birthdayPicker.date().toString()
@@ -198,6 +204,7 @@ def window():
         # Shows the bottom frame
         bframe.show()
 
+
         #add alert here to say zodiac
 
 
@@ -233,7 +240,7 @@ def window():
     birthday.setGeometry(295, 125, 150, 35)
     birthday.clicked.connect(calcAge)
 
-    
+
 
 
 
