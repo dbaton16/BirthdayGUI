@@ -3,6 +3,9 @@ from PyQt6.QtWidgets import *
 from PyQt6.QtGui import *
 from PyQt6.QtCore import QDate, QTime, QDateTime, Qt
 import sys
+import dateutil
+from dateutil import relativedelta
+from datetime import datetime
 
 #print(birthdayPicker.dateTime().toString())
 """
@@ -57,50 +60,75 @@ def window():
     tab.resize(500, 300)
     layout = QFormLayout()
     layout.addWidget(tab)
-
+    #Styles tabs
     stylesheet = """ 
         QTabBar::tab:selected {background: #000000;}
         QTabWidget>QWidget>QWidget{background: #e6e8e8;}
         """
-
     tab.setStyleSheet(stylesheet)
-
+    #Creates year tab widget
     yearpage = QWidget(tab)
     yearpage_layout = QVBoxLayout()
     yearpage.setLayout(yearpage_layout)
-
-    label = QLabel()
-    label.setText("Hi")
-    yearpage.layout().addWidget(label)
-
+    #Creates month tab widget
     monthpage = QWidget(tab)
     monthpage_layout = QVBoxLayout()
     monthpage.setLayout(monthpage_layout)
+    #Creates day tab widget
+    daypage = QWidget(tab)
+    daypage_layout = QVBoxLayout()
+    daypage.setLayout(daypage_layout)
 
-    label2 = QLabel()
-    label2.setText("Hello")
-    monthpage.setLayout(monthpage_layout)
-    monthpage.layout().addWidget(label2)
-
-
+    #Adds the tab widgets to the QTabWidget
     tab.addTab(yearpage, "Years")
     tab.addTab(monthpage, "Months")
+    tab.addTab(daypage, "Days")
 
     tab.show()
 
     # FUNCTIONS
     def calcAge():
+        # Prints user entry into console
         print(f"Birthday Entered: {birthdayPicker.date().toString()}")
+
+        #Assigns the current date and the birthdate entered to variables
         now = QDate.currentDate()
         birthday = birthdayPicker.date()
 
+        start_date = datetime.strptime(birthday.toString("dd/MM/yyyy"), "%d/%m/%Y")
+        end_date = datetime.strptime(now.toString("dd/MM/yyyy"), "%d/%m/%Y")
+        delta = relativedelta.relativedelta(end_date, start_date)
+
         ageDays = birthday.daysTo(now)
+        ageMonths = delta.months + (delta.years * 12)
         ageYears = int(ageDays/365)
         """
         zodiac = ""
         if birthday
         """
-        print(ageDays, ageYears)
+        #Adds year label to the Years tab
+        yrsoldlabel = QLabel()
+        yrsoldlabel.setText(f"You are {ageYears} years old!")
+        yrsoldlabel.setFont(QFont('Arial', 12))
+        yrsoldlabel.setGeometry(100, 30, 150, 15)
+        yrsoldlabel.adjustSize()
+        yearpage.layout().addWidget(yrsoldlabel)
+
+        #Adds month label to the Months tab
+        monthsoldlabel = QLabel()
+        monthsoldlabel.setText(f"You are {ageMonths} months old!")
+        monthpage.setLayout(monthpage_layout)
+        monthpage.layout().addWidget(monthsoldlabel)
+
+        #Adds day label to the Days tab
+        daysoldlabel = QLabel()
+        daysoldlabel.setText(f"You are {ageDays} days old!")
+        daypage.layout().addWidget(daysoldlabel)
+        daysoldlabel.setFont(QFont('Arial', 12))
+        daysoldlabel.setGeometry(170, 50, 150, 15)
+        daysoldlabel.adjustSize()
+        #print(ageDays, ageYears)
+
 
 
         # Alert box/ Message box with zodiac sign
@@ -113,21 +141,7 @@ def window():
         zodiacAlert.adjustSize()
         retval = zodiacAlert.exec()
 
-
-
-        # Adds age info to frame, then show it
-        yearslabel = QtWidgets.QLabel(bframe)
-        yearslabel.setText(f"You are {ageYears} years old.")
-        yearslabel.setFont(QFont('Arial', 12))
-        yearslabel.setGeometry(100, 30, 150, 15)
-        yearslabel.adjustSize()
-
-        dayslabel = QtWidgets.QLabel(bframe)
-        dayslabel.setText(f"You are {ageDays} days old.")
-        dayslabel.setFont(QFont('Arial', 12))
-        dayslabel.setGeometry(170, 50, 150, 15)
-        dayslabel.adjustSize()
-
+        # Shows the bottom frame
         bframe.show()
 
         #add alert here to say zodiac
