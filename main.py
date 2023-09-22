@@ -122,8 +122,9 @@ def window():
     entries = 0
     # FUNCTIONS
     def calcAge():
+        global entries
         birthday_dict = {}
-        entries = + 1
+        entries += 1
         birthday_dict[f"{entries}"] = "birthdayPicker.date().toString()"
 
         # Prints user entry into console and adds it to csv file
