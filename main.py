@@ -6,6 +6,7 @@ import sys
 import dateutil
 from dateutil import relativedelta
 from datetime import datetime
+import csv
 
 #print(birthdayPicker.dateTime().toString())
 """
@@ -26,13 +27,8 @@ print(ariesS, ariesF)
 # Aquarius : Jan 20 - Feb 18
 # Pisces : Feb 19 - Mar 20
 """
-"""
-# Functions for calculations
-def calcAgeYears:
-    bframe.show()
-    currentDateTime = QDateTime.currentDateTime()
-    print((currentDateTime.tostring(Qt.ISODate)))
-"""
+
+#print((now.tostring(Qt.ISODate)))
 # Function for the main window
 def window():
     # application
@@ -62,34 +58,71 @@ def window():
     layout.addWidget(tab)
     #Styles tabs
     stylesheet = """ 
-        QTabBar::tab:selected {background: #000000;}
+        QTabBar::tab:selected {background: #9c9c9c;}
         QTabWidget>QWidget>QWidget{background: #e6e8e8;}
         """
     tab.setStyleSheet(stylesheet)
-    #Creates year tab widget
+
+    #Creates year tab widget (and label to be changed)
     yearpage = QWidget(tab)
     yearpage_layout = QVBoxLayout()
     yearpage.setLayout(yearpage_layout)
+    yrsoldlabel = QLabel()
+
     #Creates month tab widget
     monthpage = QWidget(tab)
     monthpage_layout = QVBoxLayout()
     monthpage.setLayout(monthpage_layout)
+    monthsoldlabel = QLabel()
+
     #Creates day tab widget
     daypage = QWidget(tab)
     daypage_layout = QVBoxLayout()
     daypage.setLayout(daypage_layout)
+    daysoldlabel = QLabel()
+
+    #Creates hour tab widget (and label to be changed)
+    hourpage = QWidget(tab)
+    hourpage_layout = QVBoxLayout()
+    hourpage.setLayout(hourpage_layout)
+    hrsoldlabel = QLabel()
+
+    #Creates minute tab widget (and label to be changed)
+    minutepage = QWidget(tab)
+    minutepage_layout = QVBoxLayout()
+    minutepage.setLayout(minutepage_layout)
+    minsoldlabel = QLabel()
+
+    #Creates second tab widget (and label to be changed)
+    secondpage = QWidget(tab)
+    secondpage_layout = QVBoxLayout()
+    secondpage.setLayout(secondpage_layout)
+    secsoldlabel = QLabel()
 
     #Adds the tab widgets to the QTabWidget
     tab.addTab(yearpage, "Years")
     tab.addTab(monthpage, "Months")
     tab.addTab(daypage, "Days")
+    tab.addTab(hourpage, "Hours")
+    tab.addTab(minutepage, "Minutes")
+    tab.addTab(secondpage, "Seconds")
 
     tab.show()
 
+    with open('Birthdays Entered.csv', 'w') as csvfile:
+        columns = ["Entry Number", "Birthdate"]
+
+        # create the DictWriter object
+        csv_writer = csv.DictWriter(csvfile, fieldnames=columns, delimiter=';')
+        csv_writer.writeheader()
+
+
     # FUNCTIONS
     def calcAge():
-        # Prints user entry into console
-        print(f"Birthday Entered: {birthdayPicker.date().toString()}")
+
+        # Prints user entry into console and adds it to csv file
+        user_birthday = birthdayPicker.date().toString()
+        print(f"Birthday Entered: {user_birthday}")
 
         #Assigns the current date and the birthdate entered to variables
         now = QDate.currentDate()
@@ -102,12 +135,14 @@ def window():
         ageDays = birthday.daysTo(now)
         ageMonths = delta.months + (delta.years * 12)
         ageYears = int(ageDays/365)
+        ageHours = ageDays * 24
+        ageMinutes = ageHours * 60
+        ageSeconds = ageMinutes * 60
         """
         zodiac = ""
         if birthday
         """
         #Adds year label to the Years tab
-        yrsoldlabel = QLabel()
         yrsoldlabel.setText(f"You are {ageYears} years old!")
         yrsoldlabel.setFont(QFont('Arial', 12))
         yrsoldlabel.setGeometry(100, 30, 150, 15)
@@ -115,13 +150,13 @@ def window():
         yearpage.layout().addWidget(yrsoldlabel)
 
         #Adds month label to the Months tab
-        monthsoldlabel = QLabel()
         monthsoldlabel.setText(f"You are {ageMonths} months old!")
+        monthsoldlabel.setFont(QFont('Arial', 12))
+        monthsoldlabel.setGeometry(100, 30, 150, 15)
         monthpage.setLayout(monthpage_layout)
         monthpage.layout().addWidget(monthsoldlabel)
 
         #Adds day label to the Days tab
-        daysoldlabel = QLabel()
         daysoldlabel.setText(f"You are {ageDays} days old!")
         daypage.layout().addWidget(daysoldlabel)
         daysoldlabel.setFont(QFont('Arial', 12))
@@ -129,7 +164,26 @@ def window():
         daysoldlabel.adjustSize()
         #print(ageDays, ageYears)
 
+        #Adds hour label to the Hours tab
+        hrsoldlabel.setText(f"You are {ageHours} hours old!")
+        hrsoldlabel.setFont(QFont('Arial', 12))
+        hrsoldlabel.setGeometry(100, 30, 150, 15)
+        hrsoldlabel.adjustSize()
+        hourpage.layout().addWidget(hrsoldlabel)
 
+        #Adds minute label to the Hours tab
+        minsoldlabel.setText(f"You are {ageMinutes} minutes old!")
+        minsoldlabel.setFont(QFont('Arial', 12))
+        minsoldlabel.setGeometry(100, 30, 150, 15)
+        minsoldlabel.adjustSize()
+        minutepage.layout().addWidget(minsoldlabel)
+
+        #Adds second label to the Hours tab
+        secsoldlabel.setText(f"You are {ageSeconds} seconds old!")
+        secsoldlabel.setFont(QFont('Arial', 12))
+        secsoldlabel.setGeometry(100, 30, 150, 15)
+        secsoldlabel.adjustSize()
+        secondpage.layout().addWidget(secsoldlabel)
 
         # Alert box/ Message box with zodiac sign
         zodiacAlert = QMessageBox()
@@ -179,7 +233,7 @@ def window():
     birthday.setGeometry(295, 125, 150, 35)
     birthday.clicked.connect(calcAge)
 
-
+    
 
 
 
